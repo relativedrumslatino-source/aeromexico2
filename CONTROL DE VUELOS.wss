@@ -1,4 +1,4 @@
-<site version="3.0"><css/><components/><page id="p18501828" pageindex="0" name="index" pp="1" cp="1" ext=".php"><body generator="0" bgsoundloop="-1" align="1" charset="0" charsetcode="" effectstyle0="0" effectduration0="0" effectstyle1="0" effectduration1="0" effectstyle2="0" effectduration2="0" effectstyle3="0" effectduration3="0" imagetoolbar="0" enableprotect="0" title="FORMATO VUELOS ATENDIDOS" author="RAUL CASTILLO" bgoutput="" bgsoutput="" bgp="1" bsp="1"><Component type="12" id="html1" zorder="0" filename="html21433906" script="
+<site version="3.0"><css/><components/><page id="p18501828" pageindex="0" name="index" pp="1" cp="1"><body generator="0" bgsoundloop="-1" align="1" charset="0" charsetcode="" effectstyle0="0" effectduration0="0" effectstyle1="0" effectduration1="0" effectstyle2="0" effectduration2="0" effectstyle3="0" effectduration3="0" imagetoolbar="0" enableprotect="0" title="FORMATO VUELOS ATENDIDOS" author="RAUL CASTILLO" bgoutput="" bgsoutput="" bgp="1" bsp="1"><Component type="12" id="html1" zorder="0" filename="html21433906" script="
 &lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;es&quot;&gt;
 &lt;head&gt;
@@ -653,4 +653,4 @@
 &lt;/body&gt;
 &lt;/html&gt;
 
-```" width="816" height="1322" left="0" top="0" fp="1" lp="1"/><Component type="3" id="image1" zorder="1" filename="image23465343" width="26" height="19" originwidth="1200" originheight="795" src="WSB://images\paste2.jpg" previewfile="WSB://images\paste2.jpg" left="7" top="13" thumbname="thumb31210703" resamplename="img31210718" exportfilename="images/paste2.jpg" fp="1" lp="1"/></body></page></site>
+```" width="816" height="1322" left="0" top="0" selected="1" fp="1" lp="1"/><Component type="3" id="image1" zorder="1" filename="image23465343" width="26" height="19" originwidth="1200" originheight="795" src="WSB://images\paste2.jpg" previewfile="WSB://images\paste2.jpg" left="7" top="13" thumbname="thumb31343218" resamplename="img31343234" exportfilename="images/paste2.jpg" fp="1" lp="1"/></body></page></site>
