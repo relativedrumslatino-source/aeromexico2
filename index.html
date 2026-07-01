@@ -9,7 +9,7 @@
 div#container
 {
 	position:relative;
-	width: 816px;
+	width: 929px;
 	margin-top: 0px;
 	margin-left: auto;
 	margin-right: auto;
@@ -21,8 +21,9 @@ body {text-align:center;margin:0}
 </head>
 <body>
 <div id="container">
-<div id="html1" style="position:absolute; overflow:hidden; left:0px; top:0px; width:816px; height:1322px; z-index:0">
+<div id="image1" style="position:absolute; overflow:hidden; left:7px; top:13px; width:26px; height:19px; z-index:0"><img src="images/paste2.jpg" alt="" title="" border=0 width=26 height=19></div>
 
+<div id="html1" style="position:absolute; overflow:hidden; left:0px; top:0px; width:929px; height:1240px; z-index:1">
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -87,7 +88,7 @@ body {text-align:center;margin:0}
             white-space: nowrap;
             font-size: 9px;
         }
-        input[type="text"], select {
+        input[type="text"], input[type="time"], select {
             border: none;
             border-bottom: 1px dashed #666;
             padding: 1px;
@@ -96,6 +97,10 @@ body {text-align:center;margin:0}
             font-size: 10px;
             text-transform: uppercase;
             background: transparent;
+        }
+        /* Ajustar apariencia del input de tipo time */
+        input[type="time"] {
+            text-transform: none;
         }
         select {
             cursor: pointer;
@@ -258,14 +263,31 @@ body {text-align:center;margin:0}
         .btn-capture:hover {
             background-color: #001133;
         }
-        /* Estilo especifico para centrar el dropdown de incidencia */
         .inc-select {
             width: 100%;
             text-align: center;
         }
+        /* Ampliado para permitir comodamente 8 digitos sin recortarse */
+        .arpel-space {
+            width: 65px !important;
+            text-align: center;
+            margin-right: 3px;
+        }
     </style>
 </head>
 <body>
+
+<datalist id="oo-list">
+    <option value="DIEGO VELAZQUEZ"></option>
+    <option value="EDDYE DE LA MORA"></option>
+</datalist>
+
+<datalist id="ruta-list">
+    <option value="MEX/TRC/MEX"></option>
+    <option value="MEX/TRC"></option>
+    <option value="ALTERNO"></option>
+    <option value="PERNOCTA"></option>
+</datalist>
 
 <div class="form-container" id="manifiesto-form">
     <div class="header">
@@ -280,9 +302,9 @@ body {text-align:center;margin:0}
         </div>
         <div class="field">
             <label>FECHA:</label>
-            <input type="text" style="width: 30px; text-align: center;" placeholder="DD"> /
-            <input type="text" style="width: 30px; text-align: center;" placeholder="MM"> /
-            <input type="text" style="width: 40px; text-align: center;" placeholder="AA">
+            <input type="text" id="fecha-dia" style="width: 30px; text-align: center;" placeholder="DD" maxlength="2"> /
+            <input type="text" id="fecha-mes" style="width: 30px; text-align: center;" placeholder="MM" maxlength="2"> /
+            <input type="text" id="fecha-anio" style="width: 40px; text-align: center;" placeholder="AA" maxlength="4">
         </div>
     </div>
 
@@ -294,21 +316,42 @@ body {text-align:center;margin:0}
                 <span class="checkbox-box"><input type="checkbox"> LL</span>
                 <span class="checkbox-box"><input type="checkbox"> SAL</span>
             </div>
-            <div class="field"><label>ORIGEN/DESTINO:</label><input type="text" style="width: 100%;"></div>
-            <div class="field"><label>POSICION:</label><input type="text" style="width: 100%;"></div>
+            <div class="field">
+                <label>ORIGEN/DESTINO:</label>
+                <input type="text" list="ruta-list" style="width: 100%;">
+            </div>
+            <div class="field">
+                <label>POSICION:</label>
+                <select style="width: 60px; font-weight: bold; text-align: center;">
+                    <option value=""></option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                </select>
+            </div>
         </div>
         <div class="grid-3" style="margin-bottom: 5px;">
-            <div class="field"><label>HORA DE LLEGADA:</label><input type="text" style="width: 100%;"></div>
+            <div class="field"><label>HORA DE LLEGADA:</label><input type="time" class="auto-time-input" style="width: 100%;"></div>
             <div class="field">
                 <label>BRIEFING:</label>
                 <span class="checkbox-box"><input type="checkbox"> SI</span>
                 <span class="checkbox-box"><input type="checkbox"> NO</span>
             </div>
-            <div class="field"><label>HORA DE SALIDA:</label><input type="text" style="width: 100%;"></div>
+            <div class="field"><label>HORA DE SALIDA:</label><input type="time" class="auto-time-input" style="width: 100%;"></div>
         </div>
         <div class="grid-3">
             <div class="field"><label>CANTIDAD ARPEL:</label><input type="text" style="width: 100%;"></div>
-            <div class="field" style="grid-column: span 2;"><label>FOLIOS ARPEL:</label><input type="text" style="width: 100%;"></div>
+            <div class="field" style="grid-column: span 2;">
+                <label>FOLIOS ARPEL:</label>
+                <input type="text" class="arpel-space" placeholder="1" maxlength="8">
+                <input type="text" class="arpel-space" placeholder="2" maxlength="8">
+                <input type="text" class="arpel-space" placeholder="3" maxlength="8">
+                <input type="text" class="arpel-space" placeholder="4" maxlength="8">
+            </div>
         </div>
     </div>
 
@@ -324,7 +367,7 @@ body {text-align:center;margin:0}
         </thead>
         <tbody>
             <tr>
-                <td>NOMBRE OO: <input type="text" style="width: 75%;"></td>
+                <td>NOMBRE OO: <input type="text" class="oo-input" list="oo-list" style="width: 75%;"></td>
                 <td>
                     <select class="inc-select">
                         <option value=""></option>
@@ -336,44 +379,47 @@ body {text-align:center;margin:0}
                         <option value="6">6</option>
                     </select>
                 </td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
-                <td><input type="text" style="width: 100%;"></td>
+                <td style="text-align: center;">
+                    <span class="checkbox-box click-time-box"><input type="checkbox"> CD</span>
+                    <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span>
+                </td>
+                <td><input type="text" class="oo-emp-input" style="width: 100%;"></td>
             </tr>
 
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
         </tbody>
@@ -392,46 +438,49 @@ body {text-align:center;margin:0}
         </thead>
         <tbody>
             <tr>
-                <td>NOMBRE OO: <input type="text" style="width: 75%;"></td>
+                <td>NOMBRE OO: <input type="text" class="oo-input" list="oo-list" style="width: 75%;"></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
-                <td><input type="text" style="width: 100%;"></td>
+                <td style="text-align: center;">
+                    <span class="checkbox-box click-time-box"><input type="checkbox"> CD</span>
+                    <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span>
+                </td>
+                <td><input type="text" class="oo-emp-input" style="width: 100%;"></td>
             </tr>
 
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
             <tr>
                 <td>NOMBRE DEL TG: <select class="tg-select" style="width: 65%;"></select></td>
                 <td><select class="inc-select"><option value=""></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></td>
-                <td style="text-align: center;"><span class="checkbox-box"><input type="checkbox"> CD</span> <span class="checkbox-box"><input type="checkbox"> CT</span></td>
+                <td style="text-align: center;"><span class="checkbox-box click-time-box"><input type="checkbox"> CD</span> <span class="checkbox-box click-time-box"><input type="checkbox"> CT</span></td>
                 <td><input type="text" class="emp-input" style="width: 100%;"></td>
             </tr>
         </tbody>
@@ -532,21 +581,22 @@ body {text-align:center;margin:0}
     <div class="observaciones-container">
         <div class="obs-column">
             <span style="font-weight: bold; text-align: center; font-family: Arial;">CD</span>
-            <div class="obs-line"><span>A</span><input type="text"></div>
-            <div class="obs-line"><span>I</span><input type="text"></div>
-            <div class="obs-line"><span>F</span><input type="text"></div>
-            <div class="obs-line"><span>C</span><input type="text"></div>
+            <div class="obs-line"><span>A</span><input type="text" class="obs-time-input"></div>
+            <div class="obs-line"><span>I</span><input type="text" class="obs-time-input"></div>
+            <div class="obs-line"><span>F</span><input type="text" class="obs-time-input"></div>
+            <div class="obs-line"><span>C</span><input type="text" class="obs-time-input"></div>
         </div>
         <div class="obs-column">
             <span style="font-weight: bold; text-align: center; font-family: Arial;">CT</span>
-            <div class="obs-line"><span>A</span><input type="text"></div>
-            <div class="obs-line"><span>I</span><input type="text"></div>
-            <div class="obs-line"><span>F</span><input type="text"></div>
-            <div class="obs-line"><span>C</span><input type="text"></div>
+            <div class="obs-line"><span>A</span><input type="text" class="obs-time-input"></div>
+            <div class="obs-line"><span>I</span><input type="text" class="obs-time-input"></div>
+            <div class="obs-line"><span>F</span><input type="text" class="obs-time-input"></div>
+            <div class="obs-line"><span>C</span><input type="text" class="obs-time-input"></div>
         </div>
         <div class="obs-text">
             <span style="font-weight: bold; font-family: Arial;">OBSERVACIONES:</span>
-            <textarea></textarea>
+            <textarea id="observaciones-box">Hora de Iniciio de Limpieza de :                  a
+Mtto: </textarea>
         </div>
     </div>
 
@@ -576,15 +626,24 @@ body {text-align:center;margin:0}
 <button class="btn-capture" id="download-btn">?? Generar Imagen para Enviar</button>
 
 <script>
-    // Base de datos de empleados
+    // Base de datos de jefes de OO
+    const ooData = {
+        "DIEGO VELAZQUEZ": "30052287",
+        "EDDYE DE LA MORA": "30081177"
+    };
+
+    // Base de datos de empleados TG
     const empleadosData = [
+        { name: "JESUS VAZQUEZ", id: "30010500" },
+        { name: "JOSE VALDEZ", id: "30013281" },
         { name: "NAVARRO CUEVAS GILBERTO GUILLERMO", id: "30027165" },
         { name: "RODRIGUEZ BENAVENTE ANTULIO RAFAEL", id: "30059307" },
         { name: "ROJAS CHAVARRIA MIGUEL ANGEL", id: "30027169" },
         { name: "CORNEJO GARCIA FRANCISCO", id: "30027171" },
         { name: "PINA MORENO AGUSTIN", id: "30027172" },
+        { name: "LOPEZ SANCHEZ JESUS GILDARDO", id: "30027185" },
         { name: "AGUILAR DE LA TORRE ALBERTO", id: "30027186" },
-        { name: "SAMANIEGO RIOS ANTONIO", id: "30027188" },
+        { name: "SAMANIEIEGO RIOS ANTONIO", id: "30027188" },
         { name: "GARCIA SALINAS JORGE LUIS", id: "30027198" },
         { name: "GALLEGOS MONSIVAIS CAMILO", id: "30027206" },
         { name: "PALACIOS JAUREGUI JUAN DANIEL", id: "30027208" },
@@ -606,7 +665,6 @@ body {text-align:center;margin:0}
         { name: "AGUILAR DE LA TORRE JORGE", id: "30037655" },
         { name: "NINO MARTINEZ JUAN MANUEL", id: "30027166" },
         { name: "MORA GALVAN RAFAEL GABRIEL", id: "30096220" },
-        { name: "VELAZQUEZ DIEGO", id: "30005228" },
         { name: "VELAZQUEZ GONZALEZ JUVENAL", id: "30027180" },
         { name: "SUAREZ CARDENAS GABRIELA JAQUELINE", id: "30096880" },
         { name: "LUNA AGUINAGA ALAN ALEJANDRO", id: "30096883" },
@@ -615,10 +673,81 @@ body {text-align:center;margin:0}
         { name: "MIRELES SALAS CHRISTOPHER DANIEL", id: "30097538" }
     ];
 
-    // ORDENAR ALFABETICAMENTE EL ARRAY DE EMPLEADOS POR EL CAMPO 'name'
+    // Al iniciar el documento, colocar la fecha actual de forma automatica y editable
+    window.addEventListener('DOMContentLoaded', () => {
+        const hoy = new Date();
+        const dd = String(hoy.getDate()).padStart(2, '0');
+        const mm = String(hoy.getMonth() + 1).padStart(2, '0'); // Enero es 0
+        const aa = String(hoy.getFullYear()).substring(2); // Formato de 2 digitos (ej: 26)
+
+        document.getElementById('fecha-dia').value = dd;
+        document.getElementById('fecha-mes').value = mm;
+        document.getElementById('fecha-anio').value = aa;
+    });
+
+    // Funcion para obtener la hora actual en formato militar HH:MM de 24 horas
+    function getCurrentTime24h() {
+        const now = new Date();
+        const hrs = String(now.getHours()).padStart(2, '0');
+        const mins = String(now.getMinutes()).padStart(2, '0');
+        return `${hrs}:${mins}`;
+    }
+
+    // Automatizacion de inputs de Hora de Llegada y Hora de Salida al hacer clic/tocar (Con confirmacion)
+    document.querySelectorAll('.auto-time-input').forEach(input => {
+        input.addEventListener('click', function(e) {
+            if (this.value) {
+                const confirmar = confirm("¿Estás seguro de que quieres cambiar la hora actual?");
+                if (!confirmar) {
+                    e.preventDefault();
+                    return;
+                }
+            }
+            this.value = getCurrentTime24h();
+        });
+    });
+
+    // Automatizacion de inputs de los cuadros CD y CT en observaciones al tocarlos (Con confirmacion)
+    document.querySelectorAll('.obs-time-input').forEach(input => {
+        input.addEventListener('click', function(e) {
+            if (this.value) {
+                const confirmar = confirm("¿Estás seguro de que quieres cambiar la hora actual?");
+                if (!confirmar) {
+                    return;
+                }
+            }
+            this.value = getCurrentTime24h();
+        });
+    });
+
+    // Automatizacion basica para los checkboxes interactivos de las tablas
+    document.querySelectorAll('.click-time-box').forEach(box => {
+        box.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'INPUT') {
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                if (checkbox) checkbox.checked = !checkbox.checked;
+            }
+        });
+    });
+
+    // Escuchar cambios en los inputs NOMBRE OO para autollenar su número de empleado
+    document.querySelectorAll('.oo-input').forEach(inputElement => {
+        inputElement.addEventListener('input', function() {
+            const val = this.value.toUpperCase().trim();
+            const parentRow = this.closest('tr');
+            const empInput = parentRow.querySelector('.oo-emp-input');
+            if (empInput) {
+                if (ooData[val]) {
+                    empInput.value = ooData[val];
+                }
+            }
+        });
+    });
+
+    // Ordenar alfabéticamente los TG por nombre
     empleadosData.sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
 
-    // Poblamos dinamicamente todos los selectores de la clase 'tg-select' ya ordenados
+    // Poblamos dinámicamente los selectores de los TG
     document.querySelectorAll('.tg-select').forEach(selectElement => {
         let defaultOption = document.createElement('option');
         defaultOption.value = "";
@@ -641,7 +770,7 @@ body {text-align:center;margin:0}
         });
     });
 
-    // Captura y exportacion del formulario a imagen png
+    // Captura y exportación a imagen PNG
     document.getElementById('download-btn').addEventListener('click', function () {
         const formElement = document.getElementById('manifiesto-form');
 
@@ -649,14 +778,16 @@ body {text-align:center;margin:0}
             scale: 2,
             useCORS: true,
             onclone: (clonedDoc) => {
-                const inputs = formElement.querySelectorAll('input[type="text"], textarea');
-                const clonedInputs = clonedDoc.querySelectorAll('input[type="text"], textarea');
+                // Sincronizar todos los inputs y textareas
+                const inputs = formElement.querySelectorAll('input[type="text"], input[type="time"], textarea');
+                const clonedInputs = clonedDoc.querySelectorAll('input[type="text"], input[type="time"], textarea');
                 inputs.forEach((input, index) => {
                     if(clonedInputs[index]) {
                         clonedInputs[index].value = input.value;
                     }
                 });
 
+                // Sincronizar selectores fijos
                 const selects = formElement.querySelectorAll('select');
                 const clonedSelects = clonedDoc.querySelectorAll('select');
                 selects.forEach((select, index) => {
@@ -675,13 +806,9 @@ body {text-align:center;margin:0}
 </script>
 
 </body>
-</html>
+</html></div>
 
-```</div>
-
-<div id="image1" style="position:absolute; overflow:hidden; left:7px; top:13px; width:26px; height:19px; z-index:1"><img src="images/paste2.jpg" alt="" title="" border=0 width=26 height=19></div>
-
-<div style="position:absolute;left:0;top:1332px;z-index:999"><a href="http://www.webpage-maker.com"><img border=0 src="images/wpmhome.gif" alt="Web Page Maker, create your own web pages."</a></div>
+<div style="position:absolute;left:0;top:1250px;z-index:999"><a href="http://www.webpage-maker.com"><img border=0 src="images/wpmhome.gif" alt="Web Page Maker, create your own web pages."</a></div>
 </div>
 
 </body>
